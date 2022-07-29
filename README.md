@@ -1,8 +1,16 @@
 # Getting Started with Create React App
 
 ## Components
+See image below for components structure
 ![](src/assets/images/components_relationship.png)
 
+**_`App.js`_** Parent component of TopBar and Main
+
+**_`Login`_** Used for collecting user login info and executing a login request.
+
+**_`Register_** Used for new user registration.
+
+## **Framework**
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
