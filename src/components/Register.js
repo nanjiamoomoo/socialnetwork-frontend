@@ -5,6 +5,7 @@ import {BASE_URL} from "../constants";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
+//Register new user
 function Register(props) {
     const [loading, setLoading] = useState(false);
 

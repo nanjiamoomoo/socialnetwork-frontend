@@ -6,9 +6,19 @@ See image below for components structure
 
 **_`App.js`_** Parent component of TopBar and Main
 
-**_`Login`_** Used for collecting user login info and executing a login request.
+**_`TopBar.js`_** TopBar of the page
 
-**_`Register_** Used for new user registration.
+**_`Main.js`_** Main component controls the page navigation between Login, Register and Home components based on loggedIn status and url
+
+**_`Login`_** Used for collecting user login info and executing a login request
+
+**_`Register`_** Used for new user registration.
+
+**_`Home`_** The home page after login
+
+**_`SearchBar`_** Used for triggering search to fetch posts from backend. This component collects user search keywords and search type.
+
+**_`PhotoGallery`_** Used for display images fetched.
 
 ## **Framework**
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

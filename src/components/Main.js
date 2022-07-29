@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
 
+//This component controls the navigation between Login, Register and Home based on loggedIn status and url
 function Main(props) {
     const {isLoggedIn, handleLoggedIn} = props;
 
