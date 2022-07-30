@@ -37,6 +37,7 @@ export const PostForm = React.forwardRef((props, ref) => {
             <Form.Item
                 label="Dragger:"
                 name="postUploaded"
+                valuePropName="fileList"
                 getValueFromEvent={normFile}
                 rules={[
                     {
