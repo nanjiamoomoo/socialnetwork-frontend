@@ -2,7 +2,6 @@ import {Input, Radio} from "antd"
 import {useState} from "react";
 import {SEARCH_KEY} from "../constants";
 
-
 const {Search} = Input
 
 //This component collects user search keywords and search type and triggers fetch data from backend.
@@ -54,7 +53,6 @@ function SearchBar({handleSearch, searching}) {
                 <Radio value={SEARCH_KEY.user}>user</Radio>
             </Radio.Group>
         </>
-
     );
 }
 

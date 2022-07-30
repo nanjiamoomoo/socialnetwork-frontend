@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import SearchBar from "./SearchBar";
-import {Tabs, message, Button, Row, Col} from "antd";
+import {Tabs, message, Row, Col} from "antd";
 import {BASE_URL, SEARCH_KEY, TOKEN_KEY} from "../constants";
 import axios from "axios";
 import PhotoGallery from "./PhotoGallery";
@@ -9,7 +9,7 @@ import CreatePostButton from "./CreatePostButton";
 const {TabPane} = Tabs
 
 //The home page after login. It displays the search results based on the search option and selections.
-function Home(props) {
+function Home() {
     const [posts, setPost] = useState([]);
     const [activeTab, setActiveTab] = useState("image");
     const [searching, setSearching] = useState(false);
@@ -104,13 +104,14 @@ function Home(props) {
     }
 
     //after upload new post, automatically show all the posts for the uploaded type
-    const showPostAfterUpload = (type) => {
-        setActiveTab(type);
+    const showPostAfterUpload = (postType) => {
+        setActiveTab(postType);
 
         setTimeout(() => {
             setSearchOption({type: SEARCH_KEY.all, keyword: ""});
         }, 3000);
     }
+
     const operations = <CreatePostButton showPostAfterUpload={showPostAfterUpload}/>
 
     return (

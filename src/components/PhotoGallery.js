@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import Gallery from 'react-grid-gallery';
+import axios from "axios";
+import {BASE_URL, TOKEN_KEY} from "../constants";
+import {Button, message} from "antd";
+import {DeleteOutlined} from "@ant-design/icons";
 
 const captionStyle = {
     backgroundColor: "rgba(0, 0, 0, 0.6)",
@@ -24,7 +28,9 @@ const wrapperStyle = {
 };
 
 function PhotoGallery(props) {
-    const { images } = props;
+    const [images, setImages] = useState(props.images);
+    const [curImgIdx, setCurImgIdx] = useState(0);
+
     const imagaArr = images.map( image => {
         return {
             ...image,
@@ -36,15 +42,55 @@ function PhotoGallery(props) {
         }
     });
 
+    const onCurrentImageChange = (index) => {
+        setCurImgIdx(index)
+    }
+
+    const onDeleteImage = () => {
+        if (window.confirm(`Are you sure you want to delete this image?`)){
+            const curImg = images[curImgIdx];
+            const newImageArr = images.filter((img, index) => index !== curImgIdx);
+            const opt = {
+                method: 'DELETE',
+                url: `${BASE_URL}/post/${curImg.postId}`,
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+                }
+            };
+
+            axios(opt)
+                .then((res) => {
+                    console.log('delete result -> ', res);
+                    if(res.status === 200) {
+                        setImages(newImageArr);
+                    }
+                })
+                .catch( err => {
+                    message.error('Fetch posts failed!');
+                    console.log('fetch posts failed: ', err.message);
+                });
+        }
+    }
+
+
     return (
         <div style={wrapperStyle}>
             <Gallery
                 images={imagaArr}
                 enableImageSelection={false}
                 backdropClosesModal={true}
+                currentImageWillChange={onCurrentImageChange}
+                customControls={[
+                    <Button style={{marginTop: "10px", marginLeft: "5px"}}
+                            key="deleteImage"
+                            type="primary"
+                            icon={<DeleteOutlined />}
+                            size="small"
+                            onClick={onDeleteImage}
+                    >Delete Image</Button>
+                ]}
             />
         </div>
-
     );
 }
 
