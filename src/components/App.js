@@ -1,5 +1,5 @@
 import TopBar from "./TopBar";
-import Main from "./TopBar";
+import Main from "./Main";
 import {useState} from "react";
 import {TOKEN_KEY} from "../constants";
 
@@ -16,8 +16,9 @@ function App() {
         setIsLoggedIn(false);
     };
 
-    //logout function to remove the token and set loggedIn state to false
-    //function will be passed down to child component as props and called in child component
+    //loggedIn function is called after successfully logged in.
+    //the function is to add token in the local storage and set loggedIn state to true.
+    //the function will be passed down to child component as props and called in child component
     //to change the state of APP component and trigger re-render.
     const loggedIn = (token) => {
             if (token) {
@@ -29,7 +30,7 @@ function App() {
     return (
         <div className="App">
             <TopBar isLoggedIn={isLoggedIn} handleLogout={logout}/>
-            <Main />
+            <Main isLoggedIn={isLoggedIn} handleLoggedIn={loggedIn}/>
         </div>
     );
 }

@@ -1,9 +1,35 @@
-# Getting Started with Create React App
+# SocialNetwork-Frontend
+
+## **Project Description**
+A social network web application that allows user to upload, search and delete posts. This repository only includes the frontend portion of the project. Backend please refer to <https://github.com/nanjiamoomoo/socialnetwork-go>
+
+## **Framework**
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Components
+See image below for components structure
 ![](src/assets/images/components_relationship.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**_`App.js`_** Parent component of TopBar and Main
+
+**_`TopBar.js`_** Defines the bar on top of the page
+
+**_`Main.js`_** Main component controls the page navigation between Login, Register and Home components based on loggedIn status and url
+
+**_`Login`_** Collects user login info and executing a login request
+
+**_`Register`_** New user registration.
+
+**_`Home`_** The home page after login
+
+**_`SearchBar`_** Search to fetch posts from backend. This component collects user search keywords and search type.
+
+**_`PhotoGallery`_** Display images fetched.
+
+**_`CreatePostButton`_** Create new post and upload to the backend.
+
+**_`PostForm`_** Form to collect user input message and uploaded file
+
 
 ## Available Scripts
 
