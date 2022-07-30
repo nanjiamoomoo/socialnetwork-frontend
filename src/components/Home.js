@@ -10,13 +10,13 @@ const {TabPane} = Tabs
 
 //The home page after login. It displays the search results based on the search option and selections.
 function Home() {
-    const [posts, setPost] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [activeTab, setActiveTab] = useState("image");
     const [searching, setSearching] = useState(false);
     const [searchOption, setSearchOption] = useState({
         type: SEARCH_KEY.all,
         keyword: ""
-    })
+    });
 
     const onChangeTab = (key) => {
         setActiveTab(key);
@@ -34,6 +34,12 @@ function Home() {
     }, [searchOption])
 
     const fetchPost = (option) => {
+        console.log("fetching post...")
+        // step1: get search type / search context
+        // step2: fetch posts from the server
+        // step3: analyze the response from the server
+        // case1: success -> display posts => images / video
+        // case 2: fail -> inform user
         setSearching(true);
         const {type, keyword} = option;
         let url = ""
@@ -55,8 +61,9 @@ function Home() {
 
         axios(opt)
             .then((response) => {
+                console.log(response.data)
                 if (response.status === 200) {
-                    setPost(response.data);
+                    setPosts(response.data);
                 }
             })
             .catch((err) => {
@@ -67,6 +74,7 @@ function Home() {
         })
     }
     const renderPosts = (type) => {
+        console.log("rendering post")
         if (!posts || posts.length === 0) {
             return <div>No data!</div>;
         }
@@ -105,6 +113,7 @@ function Home() {
 
     //after upload new post, automatically show all the posts for the uploaded type
     const showPostAfterUpload = (postType) => {
+        console.log(postType)
         setActiveTab(postType);
 
         setTimeout(() => {
@@ -127,10 +136,14 @@ function Home() {
                 tabBarExtraContent={operations}
             >
                 <TabPane tab="Images" key="image">
-                    {renderPosts("image")}
+                    {
+                        !searching && renderPosts("image")
+                    }
                 </TabPane>
                 <TabPane tab="Videos" key="video">
-                    {renderPosts("video")}
+                    {
+                        !searching && renderPosts("video")
+                    }
                 </TabPane>
             </Tabs>
         </div>

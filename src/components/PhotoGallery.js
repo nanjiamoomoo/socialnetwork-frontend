@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import Gallery from 'react-grid-gallery';
 import axios from "axios";
 import {BASE_URL, TOKEN_KEY} from "../constants";
-import {Button, message} from "antd";
+import {message} from "antd";
 import {DeleteOutlined} from "@ant-design/icons";
 
 const captionStyle = {
@@ -31,7 +31,7 @@ function PhotoGallery(props) {
     const [images, setImages] = useState(props.images);
     const [curImgIdx, setCurImgIdx] = useState(0);
 
-    const imagaArr = images.map( image => {
+    const imageArr = images.map( image => {
         return {
             ...image,
             customOverlay: (
@@ -46,8 +46,19 @@ function PhotoGallery(props) {
         setCurImgIdx(index)
     }
 
+    useEffect (() => {
+        setImages(props.images);
+    }, [props.images]);
+
+
     const onDeleteImage = () => {
         if (window.confirm(`Are you sure you want to delete this image?`)){
+            //step1: get the image index to be deleted
+            //step2: filter the image from image array
+            //step3: send delete request to the server
+            //step4: analyze the response from the server
+            //case1: success -> update the state: image
+            //case2: fail -> inform user
             const curImg = images[curImgIdx];
             const newImageArr = images.filter((img, index) => index !== curImgIdx);
             const opt = {
@@ -76,18 +87,18 @@ function PhotoGallery(props) {
     return (
         <div style={wrapperStyle}>
             <Gallery
-                images={imagaArr}
+                images={imageArr}
                 enableImageSelection={false}
                 backdropClosesModal={true}
                 currentImageWillChange={onCurrentImageChange}
                 customControls={[
-                    <Button style={{marginTop: "10px", marginLeft: "5px"}}
+                    <button style={{marginTop: "10px", marginLeft: "5px"}}
                             key="deleteImage"
                             type="primary"
                             icon={<DeleteOutlined />}
                             size="small"
                             onClick={onDeleteImage}
-                    >Delete Image</Button>
+                    >Delete Image</button>
                 ]}
             />
         </div>

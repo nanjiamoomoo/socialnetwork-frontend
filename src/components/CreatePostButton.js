@@ -5,8 +5,9 @@ import axios from "axios";
 import {BASE_URL, TOKEN_KEY} from "../constants";
 
 function CreatePostButton(props) {
-    const {showPostAfterUpload} = props;
     const uploadForm = useRef();
+
+    const {showPostAfterUpload} = props;
 
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);

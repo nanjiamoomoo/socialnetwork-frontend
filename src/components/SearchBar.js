@@ -10,12 +10,13 @@ function SearchBar({handleSearch, searching}) {
     const[loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    //when click on search, onSearch will call handleSearch passed from parent to update parent states,
+    //when click on search, onSearch will call handleSearch passed from parent to update parent state,
     //which will trigger the rerender of the component
     const onSearch = (value) => {
         setLoading(true);
         if (searchType !==SEARCH_KEY.all && value === "") {
             setError("Please input your search keyword!");
+            setLoading(false);
             return
         }
         setError("");
@@ -28,7 +29,13 @@ function SearchBar({handleSearch, searching}) {
     //when an event happens, browser puts details into the event object and passes it as an argument to the handler.
     const changeSearchType = (e) => {
         console.log('radio checked', e.target.value);
-        setSearchType(e.target.value);
+        const sType = e.target.value;
+        setSearchType(sType);//this is asynchronous, may not update immediately这个是异步的，所以可能不会立即更新，
+        setError("");//handle error before change
+        //if searchType is all, Home will update without 'onSearch Event'. Other options will update through 'onSearch’ event.
+        if (sType === SEARCH_KEY.all) {
+            handleSearch({ type: SEARCH_KEY.all, keyword: "" });
+        }
     }
 
     return (
